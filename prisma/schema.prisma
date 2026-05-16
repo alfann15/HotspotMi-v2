@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+model User {
+  id             String           @id @default(cuid())
+  username       String           @unique
+  password       String
+  role           Role             @default(USER)
+  createdAt      DateTime         @default(now())
+  routers        Router[]
+  voucherHistory VoucherHistory[]
+  sharedRouters  RouterAccess[]
+}
+
+model Router {
+  id                String           @id @default(cuid())
+  userId            String
+  label             String
+  host              String
+  port              Int              @default(8728)
+  username          String
+  passwordEncrypted String
+  createdAt         DateTime         @default(now())
+  user              User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  voucherHistory    VoucherHistory[]
+  sharedWith        RouterAccess[]
+}
+
+model RouterAccess {
+  id        String   @id @default(cuid())
+  routerId  String
+  userId    String
+  createdAt DateTime @default(now())
+  router    Router   @relation(fields: [routerId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([routerId, userId])
+}
+
+model VoucherHistory {
+  id          String    @id @default(cuid())
+  routerId    String?
+  userId      String?
+  username    String
+  password    String
+  profile     String
+  profileCode String
+  prefix      String
+  price       Int       @default(0)
+  activatedAt DateTime?
+  expiredAt   DateTime?
+  migratedAt  DateTime  @default(now())
+  router      Router?   @relation(fields: [routerId], references: [id], onDelete: SetNull)
+  user        User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+}
