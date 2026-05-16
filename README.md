@@ -9,8 +9,6 @@
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-latest-336791?logo=postgresql&logoColor=white)](https://postgresql.org)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-38bdf8?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 
-![Demo](https://placehold.co/900x450/1e293b/94a3b8?text=📸+Ganti+dengan+demo+GIF+aktual)
-
 </div>
 
 ---
@@ -166,9 +164,3 @@ Setelah proses migrasi dijalankan, data disimpan di database PostgreSQL. Data in
 Bisa. Build aplikasi dengan `npm run build && npm start`, lalu arahkan reverse proxy (Nginx atau Caddy) ke port yang digunakan. Pastikan PostgreSQL dapat diakses dari server tersebut.
 
 </details>
-
----
-
-## Lisensi
-
-Proyek ini bersifat privat. Dilarang mendistribusikan ulang tanpa izin tertulis.
