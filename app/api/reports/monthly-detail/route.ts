@@ -46,7 +46,7 @@ export async function GET(request: NextRequest) {
   // Gabungkan
   const allVouchers = [
     ...routerVouchers.map((v) => ({ username: v.username, password: v.password, profile: v.profile, profileLabel: PROFILE_LABELS[v.meta.profileCode] || v.meta.profileCode, prefix: v.meta.prefix, status: v.meta.status, price: v.meta.price ?? 0, createdAt: v.meta.createdAt.toISOString(), activatedAt: v.meta.activatedAt?.toISOString() || null, source: 'router' })),
-    ...dbRecords.map((r) => ({ username: r.username, password: r.password, profile: r.profile, profileLabel: PROFILE_LABELS[r.profileCode] || r.profileCode, prefix: r.prefix, status: 'EXPIRED', price: r.price ?? 0, createdAt: r.migratedAt.toISOString(), activatedAt: r.activatedAt?.toISOString() || null, source: 'db' })),
+    ...dbRecords.map((r: any) => ({ username: r.username, password: r.password, profile: r.profile, profileLabel: PROFILE_LABELS[r.profileCode] || r.profileCode, prefix: r.prefix, status: 'EXPIRED', price: r.price ?? 0, createdAt: r.migratedAt.toISOString(), activatedAt: r.activatedAt?.toISOString() || null, source: 'db' })),
   ];
 
   const summary = {
